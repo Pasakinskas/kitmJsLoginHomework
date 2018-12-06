@@ -31,7 +31,7 @@ const app = new Vue({
             }
         },
         async authorize() {
-            const url = "http://kitmjavascript.azurewebsites.net/api/login";
+            const url = "https://kitmjavascript.azurewebsites.net/api/login";
             const res = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -48,7 +48,7 @@ const app = new Vue({
             }
         },
         async fetchStudents() {
-            const res = await fetch("http://kitmjavascript.azurewebsites.net/api/studentai");
+            const res = await fetch("https://kitmjavascript.azurewebsites.net/api/studentai");
             this.students = await res.json();
         },
         modifyBalance(amount) {
