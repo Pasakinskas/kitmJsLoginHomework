@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>KITM Javascript Homework for Festo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    </head>
+    <body>
+        <div class="container" id="app">
+            <h1>{{ pageTitle }}</h1>
+            <div id="form-box" v-if="!isAuthorized">
+                <p class="error-text" v-if="badLoginAttempted">
+                    Error, invalid username or password!
+                </p>
+                <form @submit.prevent="login()" :class="{errorBox: badLoginAttempted}">
+                    <input v-model="username" required>
+                    <input v-model="password" type="password" required>
+                    <button type="submit" :disabled="!username || !password">Submit</button>
+                </form>
+            </div>
+            <table v-else>
+                <th>ID</th>
+                <th v-for="field of tableFields">{{ field.name }}</th>
+                <tr v-for="(student, index) of activeStudents">
+                    <td> {{ index + 1 }} </td>
+                    <td v-for="field of tableFields">
+                        <img v-if="field.type === 'picture'" :src="student[field.name]"/>
+                        <template v-else-if="field.type === 'currency'">
+                            {{ modifyBalance(student[field.name]) }}
+                        </template>
+                        <template v-else-if="field.type === 'list'">
+                            {{ student[field.name].join(", ") }}
+                        </template>
+                        <template v-else>
+                            {{ student[field.name] }}
+                        </template>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
